@@ -12,7 +12,6 @@ namespace GSB
 
         public static string Visiteur1
         {
-            //je procède a un test
             get
             {
                 return Visiteur;
