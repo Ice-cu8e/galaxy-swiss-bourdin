@@ -59,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>gdbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="modele.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
