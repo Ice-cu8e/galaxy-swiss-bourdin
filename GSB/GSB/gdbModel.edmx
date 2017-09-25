@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="gsbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Etat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="libelle" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="FAMILLE">
+          <Key>
+            <PropertyRef Name="idFamille" />
+          </Key>
+          <Property Name="idFamille" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="libFamille" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fichefrais">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+            <PropertyRef Name="mois" />
+          </Key>
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="mois" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="nbJustificatifs" Type="int" />
+          <Property Name="montantValide" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="dateModif" Type="date" />
+          <Property Name="idEtat" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="FraisForfait">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="libelle" Type="char" MaxLength="20" />
+          <Property Name="montant" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Laboratoire">
+          <Key>
+            <PropertyRef Name="idLabo" />
+          </Key>
+          <Property Name="idLabo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomLabo" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LigneFraisForfait">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+            <PropertyRef Name="mois" />
+            <PropertyRef Name="idFraisForfait" />
+          </Key>
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="mois" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="idFraisForfait" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="quantite" Type="int" />
+        </EntityType>
+        <EntityType Name="LigneFraisHorsForfait">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="mois" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="libelle" Type="varchar" MaxLength="100" />
+          <Property Name="date" Type="date" />
+          <Property Name="montant" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="MEDECIN">
+          <Key>
+            <PropertyRef Name="idMedecin" />
+          </Key>
+          <Property Name="idMedecin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresse" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="15" />
+          <Property Name="idSpecialite" Type="char" MaxLength="3" />
+          <Property Name="departement" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDICAMENT">
+          <Key>
+            <PropertyRef Name="idMedicament" />
+          </Key>
+          <Property Name="idMedicament" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="nomCommercial" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="idFamille" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="composition" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="effets" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="contreIndications" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MOTIF">
+          <Key>
+            <PropertyRef Name="idMotif" />
+          </Key>
+          <Property Name="idMotif" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="libMotif" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="OFFRIR">
+          <Key>
+            <PropertyRef Name="idRapport" />
+            <PropertyRef Name="idMedicament" />
+          </Key>
+          <Property Name="idRapport" Type="int" Nullable="false" />
+          <Property Name="idMedicament" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="quantite" Type="int" />
+        </EntityType>
+        <EntityType Name="RAPPORT">
+          <Key>
+            <PropertyRef Name="idRapport" />
+          </Key>
+          <Property Name="idRapport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateRapport" Type="date" />
+          <Property Name="idMotif" Type="int" />
+          <Property Name="bilan" Type="varchar" MaxLength="64" />
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="idMedecin" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idRegion" Type="int" Nullable="false" />
+          <Property Name="libRegion" Type="varchar" MaxLength="64" />
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="idSecteur" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Secteur">
+          <Key>
+            <PropertyRef Name="idSecteur" />
+          </Key>
+          <Property Name="idSecteur" Type="int" Nullable="false" />
+          <Property Name="libSecteur" Type="varchar" MaxLength="64" />
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SPECIALITE">
+          <Key>
+            <PropertyRef Name="idSpecialite" />
+          </Key>
+          <Property Name="idSpecialite" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="libSpecialite" Type="varchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Travailler">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="idRegion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Visiteur">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+          </Key>
+          <Property Name="idVisiteur" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="idLabo" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="32" />
+          <Property Name="prenom" Type="varchar" MaxLength="32" />
+          <Property Name="rue" Type="varchar" MaxLength="64" />
+          <Property Name="cp" Type="char" MaxLength="5" />
+          <Property Name="ville" Type="varchar" MaxLength="64" />
+          <Property Name="dateEmbauche" Type="char" MaxLength="10" />
+          <Property Name="identifiant" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__fichefrai__idEta__71D1E811">
+          <End Role="Etat" Type="Self.Etat" Multiplicity="0..1" />
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etat">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fichefrais">
+              <PropertyRef Name="idEtat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fichefrai__idVis__72C60C4A">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="fichefrais">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LigneFrai__idFra__797309D9">
+          <End Role="FraisForfait" Type="Self.FraisForfait" Multiplicity="1" />
+          <End Role="LigneFraisForfait" Type="Self.LigneFraisForfait" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FraisForfait">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LigneFraisForfait">
+              <PropertyRef Name="idFraisForfait" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LigneFraisForfai__787EE5A0">
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="1" />
+          <End Role="LigneFraisForfait" Type="Self.LigneFraisForfait" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fichefrais">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Principal>
+            <Dependent Role="LigneFraisForfait">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LigneFraisHorsFo__01142BA1">
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="1" />
+          <End Role="LigneFraisHorsForfait" Type="Self.LigneFraisHorsForfait" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fichefrais">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Principal>
+            <Dependent Role="LigneFraisHorsForfait">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Laboratoire">
+          <End Role="Laboratoire" Type="Self.Laboratoire" Multiplicity="1" />
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Laboratoire">
+              <PropertyRef Name="idLabo" />
+            </Principal>
+            <Dependent Role="Visiteur">
+              <PropertyRef Name="idLabo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SECTEUR">
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="1" />
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secteur">
+              <PropertyRef Name="idSecteur" />
+            </Principal>
+            <Dependent Role="Region">
+              <PropertyRef Name="idSecteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRAVAILLER">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="Travailler" Type="Self.Travailler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="idRegion" />
+            </Principal>
+            <Dependent Role="Travailler">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITEUR">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="Region">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITEURSECTEUR">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="Secteur">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITEURTRAVAIL">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="Travailler" Type="Self.Travailler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="Travailler">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="medecin_fk">
+          <End Role="SPECIALITE" Type="Self.SPECIALITE" Multiplicity="0..1" />
+          <End Role="MEDECIN" Type="Self.MEDECIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPECIALITE">
+              <PropertyRef Name="idSpecialite" />
+            </Principal>
+            <Dependent Role="MEDECIN">
+              <PropertyRef Name="idSpecialite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="medicament_fk">
+          <End Role="FAMILLE" Type="Self.FAMILLE" Multiplicity="1" />
+          <End Role="MEDICAMENT" Type="Self.MEDICAMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILLE">
+              <PropertyRef Name="idFamille" />
+            </Principal>
+            <Dependent Role="MEDICAMENT">
+              <PropertyRef Name="idFamille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_fk1">
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="1" />
+          <End Role="OFFRIR" Type="Self.OFFRIR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAPPORT">
+              <PropertyRef Name="idRapport" />
+            </Principal>
+            <Dependent Role="OFFRIR">
+              <PropertyRef Name="idRapport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_fk2">
+          <End Role="MEDICAMENT" Type="Self.MEDICAMENT" Multiplicity="1" />
+          <End Role="OFFRIR" Type="Self.OFFRIR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICAMENT">
+              <PropertyRef Name="idMedicament" />
+            </Principal>
+            <Dependent Role="OFFRIR">
+              <PropertyRef Name="idMedicament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_fk1">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="RAPPORT">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_fk2">
+          <End Role="MEDECIN" Type="Self.MEDECIN" Multiplicity="1" />
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDECIN">
+              <PropertyRef Name="idMedecin" />
+            </Principal>
+            <Dependent Role="RAPPORT">
+              <PropertyRef Name="idMedecin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_fk3">
+          <End Role="MOTIF" Type="Self.MOTIF" Multiplicity="0..1" />
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MOTIF">
+              <PropertyRef Name="idMotif" />
+            </Principal>
+            <Dependent Role="RAPPORT">
+              <PropertyRef Name="idMotif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gsbModelStoreContainer">
+          <EntitySet Name="Etat" EntityType="Self.Etat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAMILLE" EntityType="Self.FAMILLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fichefrais" EntityType="Self.fichefrais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FraisForfait" EntityType="Self.FraisForfait" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Laboratoire" EntityType="Self.Laboratoire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LigneFraisForfait" EntityType="Self.LigneFraisForfait" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LigneFraisHorsForfait" EntityType="Self.LigneFraisHorsForfait" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDECIN" EntityType="Self.MEDECIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDICAMENT" EntityType="Self.MEDICAMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MOTIF" EntityType="Self.MOTIF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFFRIR" EntityType="Self.OFFRIR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RAPPORT" EntityType="Self.RAPPORT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Secteur" EntityType="Self.Secteur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPECIALITE" EntityType="Self.SPECIALITE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Travailler" EntityType="Self.Travailler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visiteur" EntityType="Self.Visiteur" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__fichefrai__idEta__71D1E811" Association="Self.FK__fichefrai__idEta__71D1E811">
+            <End Role="Etat" EntitySet="Etat" />
+            <End Role="fichefrais" EntitySet="fichefrais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fichefrai__idVis__72C60C4A" Association="Self.FK__fichefrai__idVis__72C60C4A">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="fichefrais" EntitySet="fichefrais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LigneFrai__idFra__797309D9" Association="Self.FK__LigneFrai__idFra__797309D9">
+            <End Role="FraisForfait" EntitySet="FraisForfait" />
+            <End Role="LigneFraisForfait" EntitySet="LigneFraisForfait" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LigneFraisForfai__787EE5A0" Association="Self.FK__LigneFraisForfai__787EE5A0">
+            <End Role="fichefrais" EntitySet="fichefrais" />
+            <End Role="LigneFraisForfait" EntitySet="LigneFraisForfait" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LigneFraisHorsFo__01142BA1" Association="Self.FK__LigneFraisHorsFo__01142BA1">
+            <End Role="fichefrais" EntitySet="fichefrais" />
+            <End Role="LigneFraisHorsForfait" EntitySet="LigneFraisHorsForfait" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Laboratoire" Association="Self.FK_Laboratoire">
+            <End Role="Laboratoire" EntitySet="Laboratoire" />
+            <End Role="Visiteur" EntitySet="Visiteur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SECTEUR" Association="Self.FK_SECTEUR">
+            <End Role="Secteur" EntitySet="Secteur" />
+            <End Role="Region" EntitySet="Region" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRAVAILLER" Association="Self.FK_TRAVAILLER">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Travailler" EntitySet="Travailler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITEUR" Association="Self.FK_VISITEUR">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="Region" EntitySet="Region" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITEURSECTEUR" Association="Self.FK_VISITEURSECTEUR">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="Secteur" EntitySet="Secteur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITEURTRAVAIL" Association="Self.FK_VISITEURTRAVAIL">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="Travailler" EntitySet="Travailler" />
+          </AssociationSet>
+          <AssociationSet Name="medecin_fk" Association="Self.medecin_fk">
+            <End Role="SPECIALITE" EntitySet="SPECIALITE" />
+            <End Role="MEDECIN" EntitySet="MEDECIN" />
+          </AssociationSet>
+          <AssociationSet Name="medicament_fk" Association="Self.medicament_fk">
+            <End Role="FAMILLE" EntitySet="FAMILLE" />
+            <End Role="MEDICAMENT" EntitySet="MEDICAMENT" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_fk1" Association="Self.offrir_fk1">
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+            <End Role="OFFRIR" EntitySet="OFFRIR" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_fk2" Association="Self.offrir_fk2">
+            <End Role="MEDICAMENT" EntitySet="MEDICAMENT" />
+            <End Role="OFFRIR" EntitySet="OFFRIR" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_fk1" Association="Self.rapport_fk1">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_fk2" Association="Self.rapport_fk2">
+            <End Role="MEDECIN" EntitySet="MEDECIN" />
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_fk3" Association="Self.rapport_fk3">
+            <End Role="MOTIF" EntitySet="MOTIF" />
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gsbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Etat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="fichefrais" Relationship="Self.FK__fichefrai__idEta__71D1E811" FromRole="Etat" ToRole="fichefrais" />
+        </EntityType>
+        <EntityType Name="FAMILLE">
+          <Key>
+            <PropertyRef Name="idFamille" />
+          </Key>
+          <Property Name="idFamille" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="libFamille" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MEDICAMENT" Relationship="Self.medicament_fk" FromRole="FAMILLE" ToRole="MEDICAMENT" />
+        </EntityType>
+        <EntityType Name="fichefrais">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+            <PropertyRef Name="mois" />
+          </Key>
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="mois" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="nbJustificatifs" Type="Int32" />
+          <Property Name="montantValide" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="dateModif" Type="DateTime" />
+          <Property Name="idEtat" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Etat" Relationship="Self.FK__fichefrai__idEta__71D1E811" FromRole="fichefrais" ToRole="Etat" />
+          <NavigationProperty Name="Visiteur" Relationship="Self.FK__fichefrai__idVis__72C60C4A" FromRole="fichefrais" ToRole="Visiteur" />
+          <NavigationProperty Name="LigneFraisForfait" Relationship="Self.FK__LigneFraisForfai__787EE5A0" FromRole="fichefrais" ToRole="LigneFraisForfait" />
+          <NavigationProperty Name="LigneFraisHorsForfait" Relationship="Self.FK__LigneFraisHorsFo__01142BA1" FromRole="fichefrais" ToRole="LigneFraisHorsForfait" />
+        </EntityType>
+        <EntityType Name="FraisForfait">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="montant" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="LigneFraisForfait" Relationship="Self.FK__LigneFrai__idFra__797309D9" FromRole="FraisForfait" ToRole="LigneFraisForfait" />
+        </EntityType>
+        <EntityType Name="Laboratoire">
+          <Key>
+            <PropertyRef Name="idLabo" />
+          </Key>
+          <Property Name="idLabo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomLabo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Visiteur" Relationship="Self.FK_Laboratoire" FromRole="Laboratoire" ToRole="Visiteur" />
+        </EntityType>
+        <EntityType Name="LigneFraisForfait">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+            <PropertyRef Name="mois" />
+            <PropertyRef Name="idFraisForfait" />
+          </Key>
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="mois" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idFraisForfait" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="quantite" Type="Int32" />
+          <NavigationProperty Name="fichefrais" Relationship="Self.FK__LigneFraisForfai__787EE5A0" FromRole="LigneFraisForfait" ToRole="fichefrais" />
+          <NavigationProperty Name="FraisForfait" Relationship="Self.FK__LigneFrai__idFra__797309D9" FromRole="LigneFraisForfait" ToRole="FraisForfait" />
+        </EntityType>
+        <EntityType Name="LigneFraisHorsForfait">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="mois" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" />
+          <Property Name="montant" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="fichefrais" Relationship="Self.FK__LigneFraisHorsFo__01142BA1" FromRole="LigneFraisHorsForfait" ToRole="fichefrais" />
+        </EntityType>
+        <EntityType Name="MEDECIN">
+          <Key>
+            <PropertyRef Name="idMedecin" />
+          </Key>
+          <Property Name="idMedecin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="idSpecialite" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="departement" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SPECIALITE" Relationship="Self.medecin_fk" FromRole="MEDECIN" ToRole="SPECIALITE" />
+          <NavigationProperty Name="RAPPORT" Relationship="Self.rapport_fk2" FromRole="MEDECIN" ToRole="RAPPORT" />
+        </EntityType>
+        <EntityType Name="MEDICAMENT">
+          <Key>
+            <PropertyRef Name="idMedicament" />
+          </Key>
+          <Property Name="idMedicament" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="nomCommercial" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idFamille" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="composition" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="effets" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contreIndications" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FAMILLE" Relationship="Self.medicament_fk" FromRole="MEDICAMENT" ToRole="FAMILLE" />
+          <NavigationProperty Name="OFFRIR" Relationship="Self.offrir_fk2" FromRole="MEDICAMENT" ToRole="OFFRIR" />
+        </EntityType>
+        <EntityType Name="MOTIF">
+          <Key>
+            <PropertyRef Name="idMotif" />
+          </Key>
+          <Property Name="idMotif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="libMotif" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RAPPORT" Relationship="Self.rapport_fk3" FromRole="MOTIF" ToRole="RAPPORT" />
+        </EntityType>
+        <EntityType Name="OFFRIR">
+          <Key>
+            <PropertyRef Name="idRapport" />
+            <PropertyRef Name="idMedicament" />
+          </Key>
+          <Property Name="idRapport" Type="Int32" Nullable="false" />
+          <Property Name="idMedicament" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="quantite" Type="Int32" />
+          <NavigationProperty Name="MEDICAMENT" Relationship="Self.offrir_fk2" FromRole="OFFRIR" ToRole="MEDICAMENT" />
+          <NavigationProperty Name="RAPPORT" Relationship="Self.offrir_fk1" FromRole="OFFRIR" ToRole="RAPPORT" />
+        </EntityType>
+        <EntityType Name="RAPPORT">
+          <Key>
+            <PropertyRef Name="idRapport" />
+          </Key>
+          <Property Name="idRapport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateRapport" Type="DateTime" />
+          <Property Name="idMotif" Type="Int32" />
+          <Property Name="bilan" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idMedecin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MEDECIN" Relationship="Self.rapport_fk2" FromRole="RAPPORT" ToRole="MEDECIN" />
+          <NavigationProperty Name="MOTIF" Relationship="Self.rapport_fk3" FromRole="RAPPORT" ToRole="MOTIF" />
+          <NavigationProperty Name="OFFRIR" Relationship="Self.offrir_fk1" FromRole="RAPPORT" ToRole="OFFRIR" />
+          <NavigationProperty Name="Visiteur" Relationship="Self.rapport_fk1" FromRole="RAPPORT" ToRole="Visiteur" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="idRegion" />
+          </Key>
+          <Property Name="idRegion" Type="Int32" Nullable="false" />
+          <Property Name="libRegion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idSecteur" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Secteur" Relationship="Self.FK_SECTEUR" FromRole="Region" ToRole="Secteur" />
+          <NavigationProperty Name="Visiteur" Relationship="Self.FK_VISITEUR" FromRole="Region" ToRole="Visiteur" />
+          <NavigationProperty Name="Visiteur1" Relationship="Self.Travailler" FromRole="Region" ToRole="Visiteur" />
+        </EntityType>
+        <EntityType Name="Secteur">
+          <Key>
+            <PropertyRef Name="idSecteur" />
+          </Key>
+          <Property Name="idSecteur" Type="Int32" Nullable="false" />
+          <Property Name="libSecteur" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_SECTEUR" FromRole="Secteur" ToRole="Region" />
+          <NavigationProperty Name="Visiteur" Relationship="Self.FK_VISITEURSECTEUR" FromRole="Secteur" ToRole="Visiteur" />
+        </EntityType>
+        <EntityType Name="SPECIALITE">
+          <Key>
+            <PropertyRef Name="idSpecialite" />
+          </Key>
+          <Property Name="idSpecialite" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="libSpecialite" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MEDECIN" Relationship="Self.medecin_fk" FromRole="SPECIALITE" ToRole="MEDECIN" />
+        </EntityType>
+        <EntityType Name="Visiteur">
+          <Key>
+            <PropertyRef Name="idVisiteur" />
+          </Key>
+          <Property Name="idVisiteur" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idLabo" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="rue" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="cp" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ville" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="dateEmbauche" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="identifiant" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="fichefrais" Relationship="Self.FK__fichefrai__idVis__72C60C4A" FromRole="Visiteur" ToRole="fichefrais" />
+          <NavigationProperty Name="Laboratoire" Relationship="Self.FK_Laboratoire" FromRole="Visiteur" ToRole="Laboratoire" />
+          <NavigationProperty Name="RAPPORT" Relationship="Self.rapport_fk1" FromRole="Visiteur" ToRole="RAPPORT" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_VISITEUR" FromRole="Visiteur" ToRole="Region" />
+          <NavigationProperty Name="Secteur" Relationship="Self.FK_VISITEURSECTEUR" FromRole="Visiteur" ToRole="Secteur" />
+          <NavigationProperty Name="Region1" Relationship="Self.Travailler" FromRole="Visiteur" ToRole="Region" />
+        </EntityType>
+        <Association Name="FK__fichefrai__idEta__71D1E811">
+          <End Role="Etat" Type="Self.Etat" Multiplicity="0..1" />
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etat">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fichefrais">
+              <PropertyRef Name="idEtat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="medicament_fk">
+          <End Role="FAMILLE" Type="Self.FAMILLE" Multiplicity="1" />
+          <End Role="MEDICAMENT" Type="Self.MEDICAMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILLE">
+              <PropertyRef Name="idFamille" />
+            </Principal>
+            <Dependent Role="MEDICAMENT">
+              <PropertyRef Name="idFamille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fichefrai__idVis__72C60C4A">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="fichefrais">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LigneFraisForfai__787EE5A0">
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="1" />
+          <End Role="LigneFraisForfait" Type="Self.LigneFraisForfait" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fichefrais">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Principal>
+            <Dependent Role="LigneFraisForfait">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LigneFraisHorsFo__01142BA1">
+          <End Role="fichefrais" Type="Self.fichefrais" Multiplicity="1" />
+          <End Role="LigneFraisHorsForfait" Type="Self.LigneFraisHorsForfait" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fichefrais">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Principal>
+            <Dependent Role="LigneFraisHorsForfait">
+              <PropertyRef Name="idVisiteur" />
+              <PropertyRef Name="mois" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LigneFrai__idFra__797309D9">
+          <End Role="FraisForfait" Type="Self.FraisForfait" Multiplicity="1" />
+          <End Role="LigneFraisForfait" Type="Self.LigneFraisForfait" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FraisForfait">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LigneFraisForfait">
+              <PropertyRef Name="idFraisForfait" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Laboratoire">
+          <End Role="Laboratoire" Type="Self.Laboratoire" Multiplicity="1" />
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Laboratoire">
+              <PropertyRef Name="idLabo" />
+            </Principal>
+            <Dependent Role="Visiteur">
+              <PropertyRef Name="idLabo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="medecin_fk">
+          <End Role="SPECIALITE" Type="Self.SPECIALITE" Multiplicity="0..1" />
+          <End Role="MEDECIN" Type="Self.MEDECIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPECIALITE">
+              <PropertyRef Name="idSpecialite" />
+            </Principal>
+            <Dependent Role="MEDECIN">
+              <PropertyRef Name="idSpecialite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_fk2">
+          <End Role="MEDECIN" Type="Self.MEDECIN" Multiplicity="1" />
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDECIN">
+              <PropertyRef Name="idMedecin" />
+            </Principal>
+            <Dependent Role="RAPPORT">
+              <PropertyRef Name="idMedecin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_fk2">
+          <End Role="MEDICAMENT" Type="Self.MEDICAMENT" Multiplicity="1" />
+          <End Role="OFFRIR" Type="Self.OFFRIR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICAMENT">
+              <PropertyRef Name="idMedicament" />
+            </Principal>
+            <Dependent Role="OFFRIR">
+              <PropertyRef Name="idMedicament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_fk3">
+          <End Role="MOTIF" Type="Self.MOTIF" Multiplicity="0..1" />
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MOTIF">
+              <PropertyRef Name="idMotif" />
+            </Principal>
+            <Dependent Role="RAPPORT">
+              <PropertyRef Name="idMotif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_fk1">
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="1" />
+          <End Role="OFFRIR" Type="Self.OFFRIR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAPPORT">
+              <PropertyRef Name="idRapport" />
+            </Principal>
+            <Dependent Role="OFFRIR">
+              <PropertyRef Name="idRapport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_fk1">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="RAPPORT" Type="Self.RAPPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="RAPPORT">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SECTEUR">
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="1" />
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secteur">
+              <PropertyRef Name="idSecteur" />
+            </Principal>
+            <Dependent Role="Region">
+              <PropertyRef Name="idSecteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITEUR">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="Region">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITEURSECTEUR">
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="1" />
+          <End Role="Secteur" Type="Self.Secteur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiteur">
+              <PropertyRef Name="idVisiteur" />
+            </Principal>
+            <Dependent Role="Secteur">
+              <PropertyRef Name="idVisiteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Travailler">
+          <End Role="Region" Type="Self.Region" Multiplicity="*" />
+          <End Role="Visiteur" Type="Self.Visiteur" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="gsbEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Etat" EntityType="Self.Etat" />
+          <EntitySet Name="FAMILLE" EntityType="Self.FAMILLE" />
+          <EntitySet Name="fichefrais" EntityType="Self.fichefrais" />
+          <EntitySet Name="FraisForfait" EntityType="Self.FraisForfait" />
+          <EntitySet Name="Laboratoire" EntityType="Self.Laboratoire" />
+          <EntitySet Name="LigneFraisForfait" EntityType="Self.LigneFraisForfait" />
+          <EntitySet Name="LigneFraisHorsForfait" EntityType="Self.LigneFraisHorsForfait" />
+          <EntitySet Name="MEDECIN" EntityType="Self.MEDECIN" />
+          <EntitySet Name="MEDICAMENT" EntityType="Self.MEDICAMENT" />
+          <EntitySet Name="MOTIF" EntityType="Self.MOTIF" />
+          <EntitySet Name="OFFRIR" EntityType="Self.OFFRIR" />
+          <EntitySet Name="RAPPORT" EntityType="Self.RAPPORT" />
+          <EntitySet Name="Region" EntityType="Self.Region" />
+          <EntitySet Name="Secteur" EntityType="Self.Secteur" />
+          <EntitySet Name="SPECIALITE" EntityType="Self.SPECIALITE" />
+          <EntitySet Name="Visiteur" EntityType="Self.Visiteur" />
+          <AssociationSet Name="FK__fichefrai__idEta__71D1E811" Association="Self.FK__fichefrai__idEta__71D1E811">
+            <End Role="Etat" EntitySet="Etat" />
+            <End Role="fichefrais" EntitySet="fichefrais" />
+          </AssociationSet>
+          <AssociationSet Name="medicament_fk" Association="Self.medicament_fk">
+            <End Role="FAMILLE" EntitySet="FAMILLE" />
+            <End Role="MEDICAMENT" EntitySet="MEDICAMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fichefrai__idVis__72C60C4A" Association="Self.FK__fichefrai__idVis__72C60C4A">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="fichefrais" EntitySet="fichefrais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LigneFraisForfai__787EE5A0" Association="Self.FK__LigneFraisForfai__787EE5A0">
+            <End Role="fichefrais" EntitySet="fichefrais" />
+            <End Role="LigneFraisForfait" EntitySet="LigneFraisForfait" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LigneFraisHorsFo__01142BA1" Association="Self.FK__LigneFraisHorsFo__01142BA1">
+            <End Role="fichefrais" EntitySet="fichefrais" />
+            <End Role="LigneFraisHorsForfait" EntitySet="LigneFraisHorsForfait" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LigneFrai__idFra__797309D9" Association="Self.FK__LigneFrai__idFra__797309D9">
+            <End Role="FraisForfait" EntitySet="FraisForfait" />
+            <End Role="LigneFraisForfait" EntitySet="LigneFraisForfait" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Laboratoire" Association="Self.FK_Laboratoire">
+            <End Role="Laboratoire" EntitySet="Laboratoire" />
+            <End Role="Visiteur" EntitySet="Visiteur" />
+          </AssociationSet>
+          <AssociationSet Name="medecin_fk" Association="Self.medecin_fk">
+            <End Role="SPECIALITE" EntitySet="SPECIALITE" />
+            <End Role="MEDECIN" EntitySet="MEDECIN" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_fk2" Association="Self.rapport_fk2">
+            <End Role="MEDECIN" EntitySet="MEDECIN" />
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_fk2" Association="Self.offrir_fk2">
+            <End Role="MEDICAMENT" EntitySet="MEDICAMENT" />
+            <End Role="OFFRIR" EntitySet="OFFRIR" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_fk3" Association="Self.rapport_fk3">
+            <End Role="MOTIF" EntitySet="MOTIF" />
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_fk1" Association="Self.offrir_fk1">
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+            <End Role="OFFRIR" EntitySet="OFFRIR" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_fk1" Association="Self.rapport_fk1">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="RAPPORT" EntitySet="RAPPORT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SECTEUR" Association="Self.FK_SECTEUR">
+            <End Role="Secteur" EntitySet="Secteur" />
+            <End Role="Region" EntitySet="Region" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITEUR" Association="Self.FK_VISITEUR">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="Region" EntitySet="Region" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITEURSECTEUR" Association="Self.FK_VISITEURSECTEUR">
+            <End Role="Visiteur" EntitySet="Visiteur" />
+            <End Role="Secteur" EntitySet="Secteur" />
+          </AssociationSet>
+          <AssociationSet Name="Travailler" Association="Self.Travailler">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Visiteur" EntitySet="Visiteur" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gsbModelStoreContainer" CdmEntityContainer="gsbEntity">
+          <EntitySetMapping Name="Etat">
+            <EntityTypeMapping TypeName="gsbModel.Etat">
+              <MappingFragment StoreEntitySet="Etat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAMILLE">
+            <EntityTypeMapping TypeName="gsbModel.FAMILLE">
+              <MappingFragment StoreEntitySet="FAMILLE">
+                <ScalarProperty Name="idFamille" ColumnName="idFamille" />
+                <ScalarProperty Name="libFamille" ColumnName="libFamille" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fichefrais">
+            <EntityTypeMapping TypeName="gsbModel.fichefrais">
+              <MappingFragment StoreEntitySet="fichefrais">
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+                <ScalarProperty Name="mois" ColumnName="mois" />
+                <ScalarProperty Name="nbJustificatifs" ColumnName="nbJustificatifs" />
+                <ScalarProperty Name="montantValide" ColumnName="montantValide" />
+                <ScalarProperty Name="dateModif" ColumnName="dateModif" />
+                <ScalarProperty Name="idEtat" ColumnName="idEtat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FraisForfait">
+            <EntityTypeMapping TypeName="gsbModel.FraisForfait">
+              <MappingFragment StoreEntitySet="FraisForfait">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="montant" ColumnName="montant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Laboratoire">
+            <EntityTypeMapping TypeName="gsbModel.Laboratoire">
+              <MappingFragment StoreEntitySet="Laboratoire">
+                <ScalarProperty Name="idLabo" ColumnName="idLabo" />
+                <ScalarProperty Name="nomLabo" ColumnName="nomLabo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LigneFraisForfait">
+            <EntityTypeMapping TypeName="gsbModel.LigneFraisForfait">
+              <MappingFragment StoreEntitySet="LigneFraisForfait">
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+                <ScalarProperty Name="mois" ColumnName="mois" />
+                <ScalarProperty Name="idFraisForfait" ColumnName="idFraisForfait" />
+                <ScalarProperty Name="quantite" ColumnName="quantite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LigneFraisHorsForfait">
+            <EntityTypeMapping TypeName="gsbModel.LigneFraisHorsForfait">
+              <MappingFragment StoreEntitySet="LigneFraisHorsForfait">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+                <ScalarProperty Name="mois" ColumnName="mois" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="montant" ColumnName="montant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDECIN">
+            <EntityTypeMapping TypeName="gsbModel.MEDECIN">
+              <MappingFragment StoreEntitySet="MEDECIN">
+                <ScalarProperty Name="idMedecin" ColumnName="idMedecin" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="idSpecialite" ColumnName="idSpecialite" />
+                <ScalarProperty Name="departement" ColumnName="departement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICAMENT">
+            <EntityTypeMapping TypeName="gsbModel.MEDICAMENT">
+              <MappingFragment StoreEntitySet="MEDICAMENT">
+                <ScalarProperty Name="idMedicament" ColumnName="idMedicament" />
+                <ScalarProperty Name="nomCommercial" ColumnName="nomCommercial" />
+                <ScalarProperty Name="idFamille" ColumnName="idFamille" />
+                <ScalarProperty Name="composition" ColumnName="composition" />
+                <ScalarProperty Name="effets" ColumnName="effets" />
+                <ScalarProperty Name="contreIndications" ColumnName="contreIndications" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MOTIF">
+            <EntityTypeMapping TypeName="gsbModel.MOTIF">
+              <MappingFragment StoreEntitySet="MOTIF">
+                <ScalarProperty Name="idMotif" ColumnName="idMotif" />
+                <ScalarProperty Name="libMotif" ColumnName="libMotif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFFRIR">
+            <EntityTypeMapping TypeName="gsbModel.OFFRIR">
+              <MappingFragment StoreEntitySet="OFFRIR">
+                <ScalarProperty Name="idRapport" ColumnName="idRapport" />
+                <ScalarProperty Name="idMedicament" ColumnName="idMedicament" />
+                <ScalarProperty Name="quantite" ColumnName="quantite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RAPPORT">
+            <EntityTypeMapping TypeName="gsbModel.RAPPORT">
+              <MappingFragment StoreEntitySet="RAPPORT">
+                <ScalarProperty Name="idRapport" ColumnName="idRapport" />
+                <ScalarProperty Name="dateRapport" ColumnName="dateRapport" />
+                <ScalarProperty Name="idMotif" ColumnName="idMotif" />
+                <ScalarProperty Name="bilan" ColumnName="bilan" />
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+                <ScalarProperty Name="idMedecin" ColumnName="idMedecin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="gsbModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+                <ScalarProperty Name="libRegion" ColumnName="libRegion" />
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+                <ScalarProperty Name="idSecteur" ColumnName="idSecteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Secteur">
+            <EntityTypeMapping TypeName="gsbModel.Secteur">
+              <MappingFragment StoreEntitySet="Secteur">
+                <ScalarProperty Name="idSecteur" ColumnName="idSecteur" />
+                <ScalarProperty Name="libSecteur" ColumnName="libSecteur" />
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPECIALITE">
+            <EntityTypeMapping TypeName="gsbModel.SPECIALITE">
+              <MappingFragment StoreEntitySet="SPECIALITE">
+                <ScalarProperty Name="idSpecialite" ColumnName="idSpecialite" />
+                <ScalarProperty Name="libSpecialite" ColumnName="libSpecialite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visiteur">
+            <EntityTypeMapping TypeName="gsbModel.Visiteur">
+              <MappingFragment StoreEntitySet="Visiteur">
+                <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+                <ScalarProperty Name="idLabo" ColumnName="idLabo" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="rue" ColumnName="rue" />
+                <ScalarProperty Name="cp" ColumnName="cp" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="dateEmbauche" ColumnName="dateEmbauche" />
+                <ScalarProperty Name="identifiant" ColumnName="identifiant" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Travailler" TypeName="gsbModel.Travailler" StoreEntitySet="Travailler">
+            <EndProperty Name="Region">
+              <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+            </EndProperty>
+            <EndProperty Name="Visiteur">
+              <ScalarProperty Name="idVisiteur" ColumnName="idVisiteur" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

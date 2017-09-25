@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8c6c0606ef72426bad1910a588d1de36" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="gsbModel.Etat" Width="1.5" PointX="3.625" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.FAMILLE" Width="1.5" PointX="11.875" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.fichefrais" Width="1.5" PointX="0.625" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.FraisForfait" Width="1.5" PointX="3.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.Laboratoire" Width="1.5" PointX="2.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.LigneFraisForfait" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.LigneFraisHorsForfait" Width="1.5" PointX="5.125" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.MEDECIN" Width="1.5" PointX="7.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.MEDICAMENT" Width="1.5" PointX="14.125" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.MOTIF" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.OFFRIR" Width="1.5" PointX="10.625" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.RAPPORT" Width="1.5" PointX="7.375" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.Region" Width="1.5" PointX="8.625" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.Secteur" Width="1.5" PointX="5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.SPECIALITE" Width="1.5" PointX="10.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gsbModel.Visiteur" Width="1.5" PointX="5.125" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="gsbModel.FK__fichefrai__idEta__71D1E811" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="gsbModel.medicament_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK__fichefrai__idVis__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK__LigneFraisForfai__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK__LigneFraisHorsFo__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK__LigneFrai__idFra__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK_Laboratoire" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.medecin_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.rapport_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.offrir_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.rapport_fk3" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.offrir_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.rapport_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK_SECTEUR" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK_VISITEUR" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.FK_VISITEURSECTEUR" ManuallyRouted="false" />
+        <AssociationConnector Association="gsbModel.Travailler" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
