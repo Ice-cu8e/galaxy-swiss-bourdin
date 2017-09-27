@@ -9,6 +9,7 @@ namespace GSB
     public static class modele
     {
         private static string Visiteur;
+        private 
 
         public static string Visiteur1
         {
