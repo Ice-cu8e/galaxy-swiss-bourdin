@@ -8,10 +8,25 @@ namespace GSB
 {
     public static class modele
     {
-        private static string Visiteur;
-        private 
+        private static Visiteur Visiteur;
+        private static gsbEntity maConnexion;
 
-        public static string Visiteur1
+       
+
+        public static gsbEntity MaConnexion
+        {
+            get
+            {
+                return maConnexion;
+            }
+
+            set
+            {
+                maConnexion = value;
+            }
+        }
+
+        public static Visiteur Visiteur1
         {
             get
             {

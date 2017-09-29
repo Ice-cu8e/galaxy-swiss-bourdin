@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Valider = new System.Windows.Forms.Button();
             this.IdentifiantLab = new System.Windows.Forms.Label();
             this.identifiantTxt = new System.Windows.Forms.TextBox();
@@ -35,6 +36,8 @@
             this.msgLab = new System.Windows.Forms.Label();
             this.passwdTxt = new System.Windows.Forms.TextBox();
             this.ConnexionLab = new System.Windows.Forms.Label();
+            this.bsuser = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bsuser)).BeginInit();
             this.SuspendLayout();
             // 
             // Valider
@@ -68,9 +71,9 @@
             this.PasswdLab.AutoSize = true;
             this.PasswdLab.Location = new System.Drawing.Point(33, 158);
             this.PasswdLab.Name = "PasswdLab";
-            this.PasswdLab.Size = new System.Drawing.Size(35, 13);
+            this.PasswdLab.Size = new System.Drawing.Size(53, 13);
             this.PasswdLab.TabIndex = 3;
-            this.PasswdLab.Text = "label2";
+            this.PasswdLab.Text = "Password";
             // 
             // msgLab
             // 
@@ -112,6 +115,7 @@
             this.Controls.Add(this.Valider);
             this.Name = "Menu";
             this.Text = "Menu";
+            ((System.ComponentModel.ISupportInitialize)(this.bsuser)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,5 +130,6 @@
         private System.Windows.Forms.Label msgLab;
         private System.Windows.Forms.TextBox passwdTxt;
         private System.Windows.Forms.Label ConnexionLab;
+        private System.Windows.Forms.BindingSource bsuser;
     }
 }

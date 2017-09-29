@@ -20,7 +20,37 @@ namespace GSB
 
         private void Valider_Click(object sender, EventArgs e)
         {
-           
+
+            var filteredData = modele.MaConnexion.Visiteur.ToList()
+                         .Where(x => x.identifiant.Equals(identifiantTxt.Text));
+            if (filteredData.ToList().Count == 0)
+            {
+                MessageBox.Show("Identifiant non valide");
+                msgLab.Text = "Connexion refusé !";
+                msgLab.Visible = true;
+            }
+            else
+            {
+                bsuser.DataSource = filteredData; // application du filtre
+                bsuser.MoveFirst();
+                Visiteur monuser = (Visiteur)bsuser.Current;
+                MD5 monMD5 = MD5.Create();
+                string passwdCrypte = GetMd5Hash(monMD5, passwdTxt.Text);
+                string pswdc = monuser.password.Substring(2); // Pbs de l'hexa 0x sur sqlserver
+                if (pswdc.Equals(passwdCrypte) || monuser.password.Equals(passwdCrypte))
+                {                  
+                    msgLab.Text = "Vous êtes autorisé à vous connecter. Bienvenue sur l'application MusicAtout !";
+                    msgLab.Visible = true;
+                    modele.Visiteur1 = monuser;
+                }
+                else
+                {
+                    MessageBox.Show("PSWD non valide");
+                    msgLab.Text = "Connexion refusé !";
+                    msgLab.Visible = true;
+                }
+            }
+
         }
         static string GetMd5Hash(MD5 MonMD5, string PasswdSaisi)
         {
